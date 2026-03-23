@@ -1,0 +1,135 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\Acer> mongosh
+Current Mongosh Log ID: 69c09e49bbcc7668d3114029
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.8.1
+MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017
+PS C:\Users\Acer> mongosh "mongodb+srv://cluster0.i2jdxlt.mongodb.net/" --apiVersion 1 --username lunatwayana_db_user
+Enter password: ***********************
+Current Mongosh Log ID: 69c0a046496632f404114029
+Connecting to:          mongodb+srv://<credentials>@cluster0.i2jdxlt.mongodb.net/?appName=mongosh+2.8.1
+Using MongoDB:          8.0.20 (API Version 1)
+Using Mongosh:          2.8.1
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+Atlas atlas-j370en-shard-0 [primary] test> use collegeDB
+switched to db collegeDB
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.insertMany([
+|   {name: "Bob", age: 21},
+|   {name: "David", age: 22}
+| ])
+\{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69c0a4de496632f40411402a'),
+    '1': ObjectId('69c0a4de496632f40411402b')
+  }
+}
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.find().pretty
+[Function: pretty] {
+  returnType: 'this',
+  serverVersions: [ '0.0.0', '999.999.999' ],
+  apiVersions: [ 0, Infinity ],
+  topologies: [ 'ReplSet', 'Standalone', 'Sharded', 'LoadBalanced' ],
+  returnsPromise: false,
+  deprecated: false,
+  platforms: [ 'Compass', 'Browser', 'CLI' ],
+  isDirectShellCommand: false,
+  acceptsRawInput: false,
+  shellCommandCompleter: undefined,
+  newShellCommandCompleter: undefined,
+  help: [Function (anonymous)] Help
+}
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.find()
+[
+  { _id: ObjectId('69c0a4de496632f40411402a'), name: 'Bob', age: 21 },
+  { _id: ObjectId('69c0a4de496632f40411402b'), name: 'David', age: 22 }
+]
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.find().pretty()
+[
+  { _id: ObjectId('69c0a4de496632f40411402a'), name: 'Bob', age: 21 },
+  { _id: ObjectId('69c0a4de496632f40411402b'), name: 'David', age: 22 }
+]
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.find({age: {$gt: 15}}).pretty()
+[
+  { _id: ObjectId('69c0a4de496632f40411402a'), name: 'Bob', age: 21 },
+  { _id: ObjectId('69c0a4de496632f40411402b'), name: 'David', age: 22 }
+]
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.insertMany([{name: "luna", age: 18, grade:"A"},{name: "luniva", age: 24, grade: "B"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69c0a7c7496632f40411402c'),
+    '1': ObjectId('69c0a7c7496632f40411402d')
+  }
+}
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.find()
+[
+  { _id: ObjectId('69c0a4de496632f40411402a'), name: 'Bob', age: 21 },
+  { _id: ObjectId('69c0a4de496632f40411402b'), name: 'David', age: 22 },
+  {
+    _id: ObjectId('69c0a7c7496632f40411402c'),
+    name: 'luna',
+    age: 18,
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('69c0a7c7496632f40411402d'),
+    name: 'luniva',
+    age: 24,
+    grade: 'B'
+  }
+]
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.updateOne({name: "David"},{$set:{age: 25}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.deleteOne({name: "Bob"})
+{ acknowledged: true, deletedCount: 1 }
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.find()
+[
+  { _id: ObjectId('69c0a4de496632f40411402b'), name: 'David', age: 25 },
+  {
+    _id: ObjectId('69c0a7c7496632f40411402c'),
+    name: 'luna',
+    age: 18,
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('69c0a7c7496632f40411402d'),
+    name: 'luniva',
+    age: 24,
+    grade: 'B'
+  }
+]
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.countDocuments()
+3
+Atlas atlas-j370en-shard-0 [primary] collegeDB> db.college.find().sort({age:1}).pretty()
+[
+  {
+    _id: ObjectId('69c0a7c7496632f40411402c'),
+    name: 'luna',
+    age: 18,
+    grade: 'A'
+  },
+  {
+    _id: ObjectId('69c0a7c7496632f40411402d'),
+    name: 'luniva',
+    age: 24,
+    grade: 'B'
+  },
+  { _id: ObjectId('69c0a4de496632f40411402b'), name: 'David', age: 25 }
+]
+Atlas atlas-j370en-shard-0 [primary] collegeDB>
